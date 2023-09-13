@@ -1,7 +1,7 @@
 ---
 title: "Week 02: COVID Visualization Activity"
 date: "September, 11 2023"
-author: "**`[[`**Your Name**`]]`**"
+author: "Megha Polavarapu"
 ---
 
 Today, we'll be working with a data set related to COVID.
@@ -24,6 +24,30 @@ Try using the different data sets and see which ones are good for making which p
 ggplot(covid_data_count, aes(x = date, y = Cases)) + geom_point()
 ```
 
+```{r second_plot1}
+ggplot(covid_data_long, aes(x = date, y = count)) + geom_point(mapping = aes(color = race, shape = race)) + geom_smooth(method = 'lm') + labs(title = "Covid cases by date", subtitle = "Using Data Set 2", x = "Date", y = "Number of Cases", color = "Race", shape = "Race")
+```
+
+```{r third_plot}
+ggplot(covid_data_long, aes(x = (population), y = (count))) + geom_bin2d() + scale_x_log10() + scale_y_log10()
+```
+
+```{r fourth_plot}
+covid_data_long |> filter(count <= 2e+07) |> ggplot(aes(x = date, y = count)) + geom_smooth() 
+```
+
+
+```{r fifth_plot}
+ggplot(covid_data_long, aes(x = fct_infreq(race))) + geom_bar()
+```
+
+```{r sixth_plot}
+ggplot(covid_data_long, aes(x = date, y = count)) + geom_smooth()
+```
+
+```{r seventh_plot}
+ggplot(covid_data_long, aes(x = race, y = after_stat(prop), group = 1)) + geom_bar() 
+```
 
 
 If you want to only look at a specific state, you can do it like this.
@@ -36,6 +60,22 @@ covid_data_count |>
 ```
 
 1. Write code for a plot and describe what you observe?
+
+In Plot 2, I can see that the the counts of cases increased as the dates progressed.
+In Plot 3, I can see that as the population increased, the counts of cases also increased along with it.
+In Plot 4, I can more clearly see the increase in the counts of cases as the dates progressed than I could in Plot 2 so the rates at which the counts increased between months is more clear. It shows how October and January had higher increases in cases than April and July did. 
+In Plot 5, it shows the counts of cases by the category of race, showing that the races with the highest number of cases were White and Black.
+In Plot 6, it shows the same general observations as Plot 4 but with a different scale which shows more clearly the sharper rise in number of cases in January.
+In Plot 7, it shows the same general observations as Plot 5 by showing the proportion of cases that each category of race comprises, which shows again that the races White and Black had the most cases.
+
 2. Are there any conclusions you can draw?
+
+The relationship between date and cases appears to be positive since as date increases, so do cases. It is fairly linear, since the points are clustered around a line and not a curve. It can be concluded that more recent dates generally have a higher number of cases since cases increase with the dates.
+
 3. What were you not able to do due to not having the R knowledge?
+
+In Plot 2, I was not able to add in more to the key for the categories that did not automatically receive a shape and color since there were more than six.
+
 4. What other data would be useful to better understand this data?
+
+Data on potential other factors influencing the number of cases could be useful to understand. For example, incorporating the number of vaccinations available into the graphs could show if that was a contribution to the fluctuations in the numbers of cases over time.
